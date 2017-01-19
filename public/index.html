@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+	<link rel="stylesheet" href="/assets/style/main.css">
+	<script src="http://localhost:35729/livereload.js"></script>
+	<script src="assets/scripts/stats.min.js"></script>
+	<title>React test</title>
+</head>
+<body>
+	<div id="app" class="app-container"></div>
+	<script src="/assets/bundle.js"></script>
+	<script>
+var stats = new Stats();
+stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+stats.dom.style.right = '0';
+stats.dom.style.left = 'inherit'
+document.body.appendChild( stats.dom );
+
+function animate() {
+
+		stats.begin();
+
+		// monitored code goes here
+
+		stats.end();
+
+		requestAnimationFrame( animate );
+
+}
+
+requestAnimationFrame( animate );	</script>
+</body>
+</html>

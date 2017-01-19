@@ -1,0 +1,5 @@
+{
+  "verbose": true,
+  "watch": ["server.js", "server/"],
+	"ignore": [ "server/configs/nodes.json" ]
+}
