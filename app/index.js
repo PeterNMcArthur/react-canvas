@@ -7,7 +7,4 @@ import OrgvueCanvas from "./orgvueCanvas/component.jsx"
 
 const mountPoint = document.getElementById('app')
 
-render((<div>
-	<h1>Working</h1>
-	<OrgvueCanvas />
-	</div>), mountPoint)
+render( <OrgvueCanvas /> , mountPoint)

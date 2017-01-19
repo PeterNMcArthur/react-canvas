@@ -7,7 +7,10 @@ export default class OrgvueCanvas extends Component {
 	}
 
 	componentDidMount() {
-		
+		const canvas = this.canvasEl 
+		const ctx = canvas.getContext("2d")
+		ctx.fillStyle = "white"
+		ctx.fillRect(0, 0, canvas.width, canvas.height)
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -15,10 +18,7 @@ export default class OrgvueCanvas extends Component {
 	}
 
 	render() {
-		return (
-			<div>
-			</div>
-			)
+		return (<canvas className="orgvue-canvas" ref={ i => this.canvasEl = i }/>)
 	}
 
 }
