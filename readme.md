@@ -15,4 +15,3 @@ Write a renderer that takes the low level GizmoGraphics and renders it on to the
 Add panning and Zooming 
 Use the hierarchy to layout the tree and get the desired position of each card
 The layout will give the edges 
-

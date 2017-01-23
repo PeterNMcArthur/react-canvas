@@ -1,12 +1,11 @@
 "use strict"
+const gizmo = require("coracle").graphics.gizmo
+const trampoline = require("coracle").lang.trampoline
 
-var gizmo = require("coracle").graphics.gizmo
-var trampoline = require("coracle").lang.trampoline
+const options = [
+{
+	shapes: "Bar"
+}
+]
 
-trampoline.init(gizmo.render)(cmds => {
-  console.log(cmds)
-}, [
-  {
-    shapes: "Bar"
-  }
-])
+trampoline.init(gizmo.render)(cmds => console.log(JSON.stringify(cmds, null, 2)), options)
