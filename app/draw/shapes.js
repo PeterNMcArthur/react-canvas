@@ -1,15 +1,15 @@
-import { intToHex } from "./../services/color"
+import { intToRGBA } from "./../services/color"
 
 const strokeShape = (ctx, fill, stroke, strokeOpacity, strokeWidth) => {
-	const colorAsHex = `#${ intToHex(fill) }`
+	const color = intToRGBA(fill, 1)
 	ctx.lineWidth = stroke
 	ctx.strokeStyle = fill
     ctx.stroke()
 }
 
 const fillShape = (ctx, fill) => {
-	const colorAsHex = `#${ intToHex(fill) }`
-	ctx.fillStyle = colorAsHex
+	const color = intToRGBA(fill, 1)
+	ctx.fillStyle = color
 	ctx.fill()
 }
 
