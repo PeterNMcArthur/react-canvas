@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom'
 import * as draw from "./../draw/shapes"
 import testData from './../../testData.json'
 
+const shapeMapper = {
+	"Rect": "rectangle"
+}
+
 export default class OrgvueCanvas extends Component {
 	constructor(props) {
 		super(props)
@@ -10,6 +14,8 @@ export default class OrgvueCanvas extends Component {
 
 	componentDidMount() {
 		const canvas = this.canvasEl 
+		canvas.width = 1920
+		canvas.height = 1080
 		this.ctx = canvas.getContext("2d")
 		this.ctx.fillStyle = "white"
 		this.ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -17,28 +23,20 @@ export default class OrgvueCanvas extends Component {
 	}
 
 	getData() {
-
 		const containers = testData[0][0]
 		const transformers = testData[0][1]
+		console.log(containers)
 		this.processContainer(containers)
-
-	}
-
-	process(obj) {
-		const keys = Object.keys(obj)
 	}
 
 	processContainer(containers) {
 		return containers.elements.map(container => {
 			const element = container[0]
-			const transformer = container[0]
-			if (element) draw.rectangle(this.ctx, element)
-			return container
+			const transforms = container[1]
+			const shape = shapeMapper[element.shapes]
+			if (element) draw[shape](this.ctx, element)
+				return container
 		})
-	}
-
-	componentDidUpdate(prevProps, prevState) {
-		
 	}
 
 	render() {

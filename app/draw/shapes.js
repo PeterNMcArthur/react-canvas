@@ -1,9 +1,19 @@
 import { intToHex } from "./../services/color"
-export const roundedRectangle = (ctx, { x, y, width, height, radius, color, stroke }) => {
 
+const strokeShape = (ctx, fill, stroke, strokeOpacity, strokeWidth) => {
+	const colorAsHex = `#${ intToHex(fill) }`
 	ctx.lineWidth = stroke
-	ctx.strokeStyle = color
+	ctx.strokeStyle = fill
+    ctx.stroke()
+}
 
+const fillShape = (ctx, fill) => {
+	const colorAsHex = `#${ intToHex(fill) }`
+	ctx.fillStyle = colorAsHex
+	ctx.fill()
+}
+
+export const roundedRectangle = (ctx, { x, y, width, height, radius, color, stroke }) => {
 	ctx.beginPath()
 	ctx.moveTo(x + radius, y)
 	ctx.lineTo(x + width - radius, y)
@@ -15,13 +25,13 @@ export const roundedRectangle = (ctx, { x, y, width, height, radius, color, stro
 	ctx.lineTo(x, y + radius)
 	ctx.quadraticCurveTo(x, y, x + radius, y)
     ctx.closePath()
-    ctx.stroke()
+    strokeShape(ctx, color, stroke)
 }
 
 export const rectangle = (ctx, { _bottom, _left, _right, _top, fill, fillOpacity, height, interactions, scope, shapes, stroke, strokeOpacity, strokeWidth, title, width, x, y }) => {
-	const color = `#${ intToHex(fill) }`
-	ctx.beginPath();
-	ctx.rect(x, y, width, height);
-	ctx.fillStyle = color
-	ctx.fill();
+	ctx.beginPath()
+	ctx.rect(x, y, width, height)
+	ctx.translate(0, 48)
+	fillShape(ctx, fill)
+	strokeShape(ctx, fill, stroke, strokeOpacity, strokeWidth) 
 }

@@ -4,44 +4,6 @@
 </head>
 <body onload="onLoad()" style="margin: 0px; overflow: hidden; position: absolute;">
   <!--svg width="300" height="200">
-    <g transform="translate(0, 0)">
-      <g transform="translate(0, 0)">
-        <rect x="10" y="10" width="180" height="180" rx="8" ry="8" fill="white" stroke="#FF7F3F" stroke-width="4" />
-        <circle cx="173" cy="27" r="8" fill="#FF7F3F" />
-        <text x="18" y="34" font-family="Arial" font-size="20">Justin Time</text>
-        <text x="18" y="49" font-family="Arial" font-size="14">Vice President</text>
-        <g transform="translate(0, 64)">
-          <text x="18" y="11" font-family="Arial" font-size="11">Department</text>
-          <text x="182" y="11" font-family="Arial" font-size="11" text-anchor="end" font-weight="bold">sales</text>
-          <text x="18" y="23" font-family="Arial" font-size="11">Age</text>
-          <text x="182" y="23" font-family="Arial" font-size="11" text-anchor="end" font-weight="bold">37</text>
-          <text x="18" y="35" font-family="Arial" font-size="11">Grade</text>
-          <text x="182" y="35" font-family="Arial" font-size="11" text-anchor="end" font-weight="bold">5-middle</text>
-          <text x="18" y="47" font-family="Arial" font-size="11">Area</text>
-          <text x="182" y="47" font-family="Arial" font-size="11" text-anchor="end" font-weight="bold">North Carolina</text>
-          <text x="18" y="59" font-family="Arial" font-size="11">Licence to kill</text>
-          <text x="182" y="59" font-family="Arial" font-size="11" text-anchor="end" font-weight="bold">Expired</text>
-        </g>
-      </g>
-      <g transform="translate(200, 0)">
-        <rect x="10" y="10" width="180" height="180" rx="8" ry="8" fill="white" stroke="#00AA00" stroke-width="4" />
-        <circle cx="173" cy="27" r="8" fill="#00AA00" />
-        <text x="18" y="34" font-family="Arial" font-size="20">Justin Time</text>
-        <text x="18" y="49" font-family="Arial" font-size="14">Vice President</text>
-        <g transform="translate(0, 64)">
-          <text x="18" y="11" font-family="Arial" font-size="11">Department</text>
-          <text x="182" y="11" font-family="Arial" font-size="11" text-anchor="end" font-weight="bold">sales</text>
-          <text x="18" y="23" font-family="Arial" font-size="11">Age</text>
-          <text x="182" y="23" font-family="Arial" font-size="11" text-anchor="end" font-weight="bold">37</text>
-          <text x="18" y="35" font-family="Arial" font-size="11">Grade</text>
-          <text x="182" y="35" font-family="Arial" font-size="11" text-anchor="end" font-weight="bold">5-middle</text>
-          <text x="18" y="47" font-family="Arial" font-size="11">Area</text>
-          <text x="182" y="47" font-family="Arial" font-size="11" text-anchor="end" font-weight="bold">North Carolina</text>
-          <text x="18" y="59" font-family="Arial" font-size="11">Licence to kill</text>
-          <text x="182" y="59" font-family="Arial" font-size="11" text-anchor="end" font-weight="bold">Expired</text>
-        </g>
-      </g>
-    </g>
   </svg-->
   <canvas id="canvas" style="position: relative;"></canvas>
   <canvas id="temp" width="1500" height="60" style="display: none;"></canvas>
