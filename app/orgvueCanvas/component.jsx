@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import * as draw from "./../draw/shapes"
 import testData from './../../testData.json'
+import { coracleRender } from './../draw/coracle.js'
 
 const shapeMapper = {
 	"Rect": "rectangle"
 }
 
 export default class OrgvueCanvas extends Component {
+
 	constructor(props) {
 		super(props)
 		this.handleMouseDown = this.handleMouseDown.bind(this)
@@ -31,15 +33,31 @@ export default class OrgvueCanvas extends Component {
 		this.ctx = canvas.getContext("2d")
 		this.ctx.fillStyle = "white"
 		this.ctx.fillRect(0, 0, canvas.width, canvas.height)
+
 		this.getData()
 
-		this.canvasEl .addEventListener('mousedown', this.handleMouseDown)
+		this.canvasEl.addEventListener('mousedown', this.handleMouseDown)
 		this.canvasEl.addEventListener('mouseup', this.handleMouseUp)
 		this.canvasEl.addEventListener('mouseleave', this.handleMouseUp)	
 
+	}
+
+	componentWillUnmount() {
+		this.canvasEl.removeEventListener('mousemove', this.handleDrag)
+		this.canvasEl.removeEventListener('mousedown', this.handleMouseDown)
+		this.canvasEl.removeEventListener('mouseup', this.handleMouseUp)
+	}	
+
+	componentDidUpdate() {
+		const containers = testData[0][0]
+		const transformers = testData[0][1]
+		console.log(this.state.data)
+		coracleRender(this.canvasEl)
+	}
+
+	getData() {
 
 		const httpOptions = {
-			auth: "peter.mcarthur@googlemail.com:Agsd3298",
 			headers: new Headers({
 				'Content-Type': 'text/plain',
 				"X-Uploader-Version": "1.10.0",
@@ -51,7 +69,7 @@ export default class OrgvueCanvas extends Component {
 				return {
 					name: n.FullName,
 					children: n.children.map(f)
-					
+
 				}
 			}
 
@@ -60,24 +78,8 @@ export default class OrgvueCanvas extends Component {
 		}
 
 		fetch("/getData", httpOptions)
-		.then((res) => res.json())
-		.then(function(myBlob) {
-			console.log(myBlob)
-		})
-
-	}
-
-	componentWillUnmount() {
-		this.canvasEl.removeEventListener('mousemove', this.handleDrag)
-		this.canvasEl.removeEventListener('mousedown', this.handleMouseDown)
-		this.canvasEl.removeEventListener('mouseup', this.handleMouseUp)
-	}	
-
-	getData() {
-		const containers = testData[0][0]
-		const transformers = testData[0][1]
-		console.log(containers)
-		this.processContainer(containers)
+		.then(res => res.json())
+		.then(data => this.setState( Object.assign({}, this.state, { data }) ))
 	}
 
 	processContainer(containers) {
@@ -136,7 +138,7 @@ export default class OrgvueCanvas extends Component {
 	}
 
 	render() {
-		return (<canvas className="orgvue-canvas" ref={ i => this.canvasEl = i }/>)
+		return <canvas className="orgvue-canvas" ref={ i => this.canvasEl = i }/>
 	}
 
 }
