@@ -1,5 +1,6 @@
-const LiveReloadPlugin = require('webpack-livereload-plugin');
- 
+const LiveReloadPlugin = require('webpack-livereload-plugin')
+const webpack = require("webpack")
+
 module.exports = {
     entry:  "./app/index.js",
     output: {
@@ -22,6 +23,10 @@ module.exports = {
         ]
     },
   plugins: [
-    new LiveReloadPlugin()
+    new LiveReloadPlugin(),
+    new webpack.NormalModuleReplacementPlugin(
+      /pdf\/text\.js$/,
+      require.resolve("./node_modules/Coracle/src/dom/text.js")
+    )
   ]
 }
