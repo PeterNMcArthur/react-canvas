@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import * as draw from "./../draw/shapes"
 import testData from './../../testData.json'
-import { coracleRender } from './../draw/coracle.js'
+import { coracleRender } from './../draw/coracle'
 
 const shapeMapper = {
 	"Rect": "rectangle"
@@ -17,11 +17,14 @@ export default class OrgvueCanvas extends Component {
 		this.handleDrag = this.handleDrag.bind(this)
 
 		this.state = {
-			currentData: [],
 			dragging: {
 				x: null,
 				y: null,
 				isActive: false
+			},
+			position: {
+				x: 0,
+				y: 0
 			}
 		}
 	}
@@ -48,11 +51,9 @@ export default class OrgvueCanvas extends Component {
 		this.canvasEl.removeEventListener('mouseup', this.handleMouseUp)
 	}	
 
-	componentDidUpdate() {
-		const containers = testData[0][0]
-		const transformers = testData[0][1]
-		console.log(this.state.data)
-		coracleRender(this.canvasEl)
+	componentDidUpdate(prevProps, prevState) {
+		const didDataUpdate = JSON.stringify(prevState.data) !== JSON.stringify(this.state.data)
+		if ((this.state.data && didDataUpdate) || this.state.dragging.isActive) this.drawFrame()
 	}
 
 	getData() {
@@ -79,18 +80,8 @@ export default class OrgvueCanvas extends Component {
 
 		fetch("/getData", httpOptions)
 		.then(res => res.json())
-		.then(data => this.setState( Object.assign({}, this.state, { data }) ))
+		.then(data => this.setState( Object.assign({}, this.state, { data: data.data.result }) ))
 	}
-
-	processContainer(containers) {
-		return containers.elements.map(container => {
-			const element = container[0]
-			const transforms = container[1]
-			const shape = shapeMapper[element.shapes]
-			if (element) draw[shape](this.ctx, element)
-				return container
-		})
-	}	
 
 	handleMouseDown(e) {
 		const newState = Object.assign({}, this.state, {
@@ -120,8 +111,8 @@ export default class OrgvueCanvas extends Component {
 		if (!this.state.dragging.isActive) return
 			const newX = (e.screenX - this.state.dragging.x)
 		const newY = (e.screenY - this.state.dragging.y)
-		this.stage.position.x = this.stage.position.x + newX
-		this.stage.position.y = this.stage.position.y + newY
+		this.state.position.x = this.state.position.x + newX
+		this.state.position.y = this.state.position.y + newY
 		const newState = Object.assign({}, this.state, {
 			dragging: {
 				x: this.state.dragging.x + newX,
@@ -130,15 +121,22 @@ export default class OrgvueCanvas extends Component {
 			}
 		})
 		this.setState(newState)
-		this.drawFrame()
 	}
 
 	drawFrame() {
-
+		const t1 = performance.now()  
+		coracleRender(this.canvasEl, this.state)
+		const t2 = performance.now()  
+		console.log(t2 - t1)
 	}
 
 	render() {
-		return <canvas className="orgvue-canvas" ref={ i => this.canvasEl = i }/>
+		return (
+			<div>
+			<pre>{JSON.stringify(this.state.dragging, null, 2), JSON.stringify(this.state.dragging, null, 2)}</pre>
+			<canvas className="orgvue-canvas" ref={ i => this.canvasEl = i }/>
+			</div>
+			)
 	}
 
 }

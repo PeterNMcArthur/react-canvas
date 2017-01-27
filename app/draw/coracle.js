@@ -1,25 +1,9 @@
 const Canvas = require("coracle").dom.Canvas
+import { orgChart } from "./../services/dataToGG" 
 
-export const coracleRender = (ctx) => {
+export const coracleRender = (ctx, state) => {
 	const canvas = new Canvas(ctx)
-	canvas.render([
-		[
-		{
-			shapes: "Rect",
-			width: 200,
-			height: 90,
-			fill: 0xFF7F3F
-		},
-		{
-			transforms: [
-			{
-				transforms: "Translate",
-				x: 100,
-				y: 10
-			}
-			]
-		}
-		]
-		])
+	const drawData = orgChart(state.data)
+	canvas.render(drawData)
 	return canvas
 }
