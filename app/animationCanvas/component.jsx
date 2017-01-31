@@ -45,6 +45,11 @@ export default class Canvas extends Component {
 		const { position, size, color } = this.state.player
 		const { x, y } = position
 		this.ctx.save()
+		this.ctx.setTransform(1,0,0,1,0,0)
+		// Will always clear the right space
+		this.ctx.clearRect(0,0, this.ctx.canvas.width, this.ctx.canvas.height)
+		this.ctx.restore()
+		this.ctx.save()
 		//this.ctx.scale(zoom, zoom)
 		//this.ctx.translate(pan.x, pan.y)
 		this.ctx.setTransform(zoom, 0, 0, zoom, pan.x, pan.y)
@@ -52,13 +57,14 @@ export default class Canvas extends Component {
 		if (y > height) return
 		this.ctx.width = 1920
 		this.ctx.height = 1080 * 1920 / 1080
-		this.ctx.clearRect(0,0, 1920, 1080)
 		this.ctx.fillStyle = color
 		this.ctx.fillRect(x, y, size, size)
-		this.ctx.strokeStyle = 'green';
-		this.ctx.strokeRect(920 / 2, 10, 100, 100);
-		this.ctx.restore()
+		for (let i = 1; i < 1000; i++) {
+			this.ctx.strokeStyle = 'green'
+			this.ctx.strokeRect((120 * i), 10, 100, 100)
 		}
+		this.ctx.restore()
+	}
 
 	zooming(zoom) {
 		zoom = parseFloat(zoom.toFixed(2))
